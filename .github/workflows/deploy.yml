@@ -1,11 +1,9 @@
-name: Deploy
+name: test
 on:
   workflow_dispatch: { }
   push:
     branches:
       - main
-permissions:
-  contents: write
 jobs:
   build-and-deploy:
     concurrency: ci-${{ github.ref }}
@@ -34,8 +32,3 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build 🛠️
         run: pnpm docs:build
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: docs/.vitepress/dist
-          branch: gh-pages
